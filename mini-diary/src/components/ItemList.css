@@ -1,0 +1,19 @@
+.ItemList .section_filter {
+    margin: 10px 0px;
+    display: flex;
+    gap: 10px;
+
+}
+
+.ItemList .section_filter select {
+    background-color: rgb(236, 236, 236);
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    font-size: 18px;
+    cursor: pointer;
+}
+
+.ItemList .section_filter button {
+    flex: 1;
+}
