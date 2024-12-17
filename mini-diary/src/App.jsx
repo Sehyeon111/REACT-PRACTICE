@@ -24,11 +24,11 @@ const mockData = [
 function reducer(state, action) {
   switch(action.type) {
     case "CREATE" : return [action.data, ...state];
-    case "DELETE" : return state.filter((item)=>item.id != action.id);
-    case "UPDATE" : return [state.map((item)=>
+    case "DELETE" : return state.filter((item)=>item.id != action.data.id);
+    case "UPDATE" : return state.map((item)=>
                               item.id === action.data.id
                             ? action.data
-                            : item)]
+                            : item)
   }
 }
 
@@ -37,7 +37,7 @@ export const DiaryDispatchContext = createContext();
 
 function App() {
 
-const [data, dispatch] = useReducer(useReducer, mockData);
+const [data, dispatch] = useReducer(reducer, mockData);
 const itemId = useRef(0);
 
 const onCreate = (content, emotionId)=>{
