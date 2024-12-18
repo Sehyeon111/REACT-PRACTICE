@@ -43,10 +43,9 @@
     cursor: pointer;
 
 }
-
 .Item .section_content .div_createdDate {
     font-weight: bold;
-    font-size:  25px;
+    font-size: 25px;
 }
 
 .Item .section_content .div_content {
