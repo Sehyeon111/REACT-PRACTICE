@@ -38,7 +38,7 @@ const Edit = ()=>{
         leftChild={<Button comment={"< 뒤로 가기"} clickMethod={()=>{nav(-1)}}/>}
         rightChild={<Button comment={"삭제하기"} type={"NEGATIVE"} clickMethod={onClickDelete}/>}/>
 
-        <Editor item={item} onClickUpdate={onClickUpdate}/>
+        <Editor item={item} onSubmit={onClickUpdate}/>
     </div>
 
 }

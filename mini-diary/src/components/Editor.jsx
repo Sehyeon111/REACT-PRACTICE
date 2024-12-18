@@ -3,16 +3,29 @@ import { getEmotionImage } from "../utils/get_emotion_image";
 import "./Editor.css";
 import Button from "./Button";
 import { useNavigate } from "react-router-dom";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { DiaryDispatchContext } from "../App";
 import { getStringedDate } from "../utils/get-stringed-date";
 
-const Editor = ({item, onClickUpdate}) => {
-    const [form, setForm] = useState({
-        ...item,
-        createdDate: new Date(Number(item.createdDate))
-    });
+const Editor = ({item, onSubmit}) => {
+    const [form, setForm] = useState({});
     const nav = useNavigate();
+    const [isLoading, setIsLoading] = useState(true);
+
+    useEffect(()=>{
+        if(!item){
+            setForm({
+                emotionId : 3,
+                createdDate: new Date(),
+            });
+        } else {
+            setForm({
+                ...item,
+                createdDate: new Date(Number(item.createdDate))
+            });
+        }
+        setIsLoading(false);
+    }, [item])
 
     const onChangeEvent = (event) => {
         let name = event.target.name;
@@ -27,7 +40,11 @@ const Editor = ({item, onClickUpdate}) => {
     }
 
     const onSubmitUpdate = () => {
-        onClickUpdate(form);
+        onSubmit(form);
+    }
+
+    if(isLoading) {
+        return <div>로딩 중...</div>
     }
 
     return <div className="Editor">
@@ -55,7 +72,7 @@ const Editor = ({item, onClickUpdate}) => {
         </section>
         <section className="section_content">
             <h4>오늘의 일기</h4>
-            <textarea name="content" onChange={onChangeEvent} value={form.content}></textarea>
+            <textarea name="content" onChange={onChangeEvent} value={form.content} placeholder="오늘은 어땠나요?"></textarea>
         </section>
         <section className="section_button"> 
                     <Button comment={"취소하기"} clickMethod={()=>{nav(-1)}}/>

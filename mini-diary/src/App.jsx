@@ -2,7 +2,7 @@ import { useState, useReducer, useRef, createContext } from 'react'
 import {BrowserRouter, Routes, Route } from 'react-router-dom'
 import './App.css'
 import Home from './pages/Home'
-import New from './pages/new'
+import New from './pages/New'
 import Edit from './pages/Edit'
 import Details from './pages/Details'
 
@@ -38,15 +38,15 @@ export const DiaryDispatchContext = createContext();
 function App() {
 
 const [data, dispatch] = useReducer(reducer, mockData);
-const itemId = useRef(0);
+const itemId = useRef(mockData.length);
 
-const onCreate = (content, emotionId)=>{
+const onCreate = (content, emotionId, createdDate)=>{
   dispatch({
     type:"CREATE",
     data: {id: ++itemId.current,
           content: content,
           emotionId: emotionId,
-          createdDate: new Date().getTime(),
+          createdDate: createdDate,
     }
   });
 }
