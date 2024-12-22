@@ -1,0 +1,10 @@
+.TodoListInput {
+    margin: 10px 0px;
+    display: flex;
+    gap: 10px;
+}
+
+.TodoListInput>input {
+    border-radius: 5px;
+    flex: 1;
+}
