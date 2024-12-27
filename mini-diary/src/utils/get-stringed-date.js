@@ -1,3 +1,6 @@
+/*
+targetData: 변환할 Date 객체
+*/
 export const getStringedDate = (targetDate) => {
     let year = targetDate.getFullYear();
     let month = targetDate.getMonth() +1;

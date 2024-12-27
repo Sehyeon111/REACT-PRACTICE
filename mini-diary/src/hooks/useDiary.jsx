@@ -2,6 +2,7 @@ import { DiaryStateContext } from "../App";
 import { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
+// id에 해당하는 Diary를 가져온다
 function useDiary(id) {
     const data = useContext(DiaryStateContext);
     const [currentDiaryItem, setCurrentDiaryItem] = useState(null);

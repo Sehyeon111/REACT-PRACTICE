@@ -1,0 +1,14 @@
+.TodoList {
+    font-size: 30px;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.isDoneButton {
+    cursor: pointer;
+}
+
+.deleteButton {
+    cursor: pointer;
+}

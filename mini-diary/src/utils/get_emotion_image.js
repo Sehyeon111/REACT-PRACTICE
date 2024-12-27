@@ -3,7 +3,9 @@ import emotion2 from "../assets/emotion2.png";
 import emotion3 from "../assets/emotion3.png";
 import emotion4 from "../assets/emotion4.png";
 import emotion5 from "../assets/emotion5.png";
-
+/* 
+emotionId: 반환할 emotion의 id
+*/
 export function getEmotionImage(emotionId) {
     switch(emotionId) {
         case 1 : return emotion1;

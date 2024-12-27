@@ -9,7 +9,9 @@ import { getStringedDate } from "../utils/get-stringed-date";
 
 const Details = ()=>{
     const params = useParams();
+    // id에 해당하는 Diary를 가져온다
     const item = useDiary(params.id);
+    
     const nav = useNavigate();
     
     if (!item) {
@@ -17,10 +19,16 @@ const Details = ()=>{
     }
 
     return <div>
+        <section>
         <Header title={getStringedDate(new Date(item.createdDate))+" 기록"}
                 leftChild={<Button comment={"< 뒤로 가기"} clickMethod={()=>{nav(-1)}}/>}
                 rightChild={<Button comment={"수정하기"} clickMethod={()=>{nav(`/edit/${item.id}`)}}/>}/>
-    <Viewer content={item.content} emotionId={item.emotionId}/>
+        </section>
+
+        <section style={{borderTop: '1px solid rgb(226, 226, 226)'}}>
+        <Viewer content={item.content} emotionId={item.emotionId}/>
+        </section>
+    
     </div>
 }
 export default Details;

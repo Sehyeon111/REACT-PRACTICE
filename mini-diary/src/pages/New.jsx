@@ -20,9 +20,14 @@ const New = ()=>{
     }
 
     return <div>
+        <section >
         <Header title={"새 일기 쓰기"}
                 leftChild={<Button comment={"< 뒤로 가기"} clickMethod={()=>{nav(-1)}}/>}/>
-        <Editor onSubmit={onClickCreate}/>
+        </section>
+        <section style={{borderTop: '1px solid rgb(226, 226, 226)'}}>
+            <Editor onSubmit={onClickCreate}/>
+        </section>
+        
         
     </div>
 }

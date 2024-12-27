@@ -1,9 +1,10 @@
-import { useState, useReducer, useRef, createContext } from 'react'
+import { useState, useReducer, useRef, createContext, useMemo } from 'react'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import './App.css'
 import Home from './pages/Home'
 import New from './pages/New'
 import Edit from './pages/Edit'
+import ItemList from './pages/ItemList'
 import Details from './pages/Details'
 
 const mockData = [
@@ -32,18 +33,21 @@ const todoMockData = [
     id: 1,
     content: "리액트 공부하기",
     createdDate: new Date().getTime(),
+    isDone: true,
   },
   {
     id: 2,
     content: "리액트 토이 프로젝트 만들기",
     emotionId: 2,
     createdDate: new Date(2024, 11, 15).getTime(),
+    isDone: false,
   },
   {
     id: 3,
     content: "이사하기",
     emotionId: 4,
     createdDate: new Date(2024, 10, 14).getTime(),
+    isDone: false,
   },
 ]
 
@@ -64,17 +68,19 @@ function todoReducer(state, action) {
     case "DELETE": return state.filter((item) => item.id != action.data.id);
     case "UPDATE": return state.map((item) =>
       item.id === action.data.id
-        ? action.data
+        ? {...item, isDone:!item.isDone}
         : item)
   }
 }
 
 export const DiaryStateContext = createContext();
 export const DiaryDispatchContext = createContext();
+export const DiaryStateContext2 = createContext();
 
 function App() {
   const [data, dispatch] = useReducer(reducer, mockData);
   const [todoData, todoDispatch] = useReducer(todoReducer, todoMockData);
+
   const itemId = useRef(mockData.length);
 
   const onCreate = (content, emotionId, createdDate) => {
@@ -130,21 +136,35 @@ function App() {
     });
   }
 
+  const onUpdate2 = (id) => {
+    todoDispatch({
+      type: "UPDATE",
+      data: {
+        id: id,
+      }
+    })
+  }
+
 
 
   return (
     <>
-      <DiaryStateContext.Provider value={{ data, todoData }}>
-        <DiaryDispatchContext.Provider value={{ onCreate, onDelete, onUpdate, onCreate2, onDelete2 }}>
+      <DiaryStateContext.Provider value={data}>
+        <DiaryStateContext2.Provider value={todoData}>
+        <DiaryDispatchContext.Provider value={{ onCreate, onDelete, onUpdate, onCreate2, onDelete2, onUpdate2}}>
           <BrowserRouter>
             <Routes>
-              <Route path="/" element={<Home />}></Route>
-              <Route path="/new" element={<New />}></Route>
-              <Route path="/details/:id" element={<Details />}></Route>
-              <Route path="/edit/:id" element={<Edit />}></Route>
+              <Route path="/" element={<Home />}>
+                <Route path="/" element={<ItemList />}></Route>
+                <Route path="/new" element={<New />}></Route>
+                <Route path="/details/:id" element={<Details />}></Route>
+                <Route path="/edit/:id" element={<Edit />}></Route>
+              </Route>
+              
             </Routes>
           </BrowserRouter>
         </DiaryDispatchContext.Provider>
+        </DiaryStateContext2.Provider>
       </DiaryStateContext.Provider>
     </>
   )

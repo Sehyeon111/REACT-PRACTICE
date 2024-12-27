@@ -13,9 +13,11 @@ const TodoListInput = ({ date }) => {
 
     const onClickCreate2 = () => {
         onCreate2(input, date);
+        setInput("");
     }
+
     return <div className="TodoListInput">
-        <input type="text" onChange={onChangeInput} />
+        <input type="text" onChange={onChangeInput} value={input}/>
         <Button comment={"저장"} type={"POSITIVE"} clickMethod={onClickCreate2} />
     </div>
 }

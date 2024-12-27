@@ -1,27 +1,32 @@
-import Button from "./Button";
-import "./ItemList.css";
-import Item from "./Item";
-import { useContext, useState, useMemo } from "react";
-import { DiaryStateContext } from "../App";
-import { useNavigate } from "react-router-dom";
+import Button from "../components/Button";
+import "../components/ItemList.css";
+import Item from "../components/Item";
+import { useState, useMemo, memo } from "react";
+import { useNavigate, useOutletContext } from "react-router-dom";
 
 
-const ItemList = ({filterdDate}) => {
+const ItemList = () => {
+    // 월별 일기 데이터를 가져온다
+    const filterdData = useOutletContext();
+
+    // 정렬 타입을 state로 관리한다
     const [sortType, setSortType] = useState("latest");
-    const nav = useNavigate();
+
     const onChangeSortType = (e) => {
         setSortType(e.target.value);
     }
-    
+    const nav = useNavigate();
+
+    // 월별 일기 데이터와 정렬 타입이 바뀔 때만 재정렬 한다.
     const sortedData = useMemo(() => {
-        return filterdDate.toSorted((a, b)=>{
+        return filterdData.toSorted((a, b)=>{
             if(sortType === "oldest") {
                 return Number(a.createdDate) - Number(b.createdDate);
             } else {
                 return Number(b.createdDate) - Number(a.createdDate);
             }
         })
-    }, [filterdDate, sortType]);
+    }, [filterdData, sortType]);
 
     return <div className="ItemList">
         <section className="section_filter">
@@ -36,4 +41,4 @@ const ItemList = ({filterdDate}) => {
         </section>
     </div>
 }
-export default ItemList;
+export default memo(ItemList);

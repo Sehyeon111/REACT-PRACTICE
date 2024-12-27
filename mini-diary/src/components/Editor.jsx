@@ -7,11 +7,14 @@ import { useContext, useEffect, useState } from "react";
 import { DiaryDispatchContext } from "../App";
 import { getStringedDate } from "../utils/get-stringed-date";
 
+// 일기 생성과 수정은 같은 Editor 컴포넌트에서 수행한다
 const Editor = ({item, onSubmit}) => {
+    // 사용자의 입력내용을 state로 관리한다
     const [form, setForm] = useState({});
     const nav = useNavigate();
     const [isLoading, setIsLoading] = useState(true);
 
+    // props로 item이 없다면 New 페이지로, form을 기본 내용으로 설정하고 / item이 있다면 수정 페이지로 form을 해당 item 내용으로 설정한다
     useEffect(()=>{
         if(!item){
             setForm({
@@ -27,6 +30,7 @@ const Editor = ({item, onSubmit}) => {
         setIsLoading(false);
     }, [item])
 
+    // 입력 값이 변할 때마다 form state를 변경한다
     const onChangeEvent = (event) => {
         let name = event.target.name;
         let value = event.target.value;
@@ -39,6 +43,7 @@ const Editor = ({item, onSubmit}) => {
         })
     }
 
+    // 입력 값을 전송한다
     const onSubmitUpdate = () => {
         onSubmit(form);
     }

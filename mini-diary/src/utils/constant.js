@@ -1,3 +1,6 @@
+/*
+사용할 emotionList를 정의하고, export한다
+*/
 export const emotionList = [
     {
         emotionId:1,
